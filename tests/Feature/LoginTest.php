@@ -15,7 +15,7 @@ class LoginTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->json('POST', route('login'), [
+        $response = $this->json('POST', route('auth.login'), [
             'email' => $user->email,
             'password' => 'password',
         ])
@@ -42,14 +42,14 @@ class LoginTest extends TestCase
     public function test_invalid_email()
     {
         // Email not provided
-        $this->json('POST', route('login'), [
+        $this->json('POST', route('auth.login'), [
             'email' => '',
             'password' => 'password',
         ])->assertStatus(422)->assertJsonStructure([
             'errors' => ['email']
         ]);
         // Email does not exist
-        $this->json('POST', route('login'), [
+        $this->json('POST', route('auth.login'), [
             'email' => 'fake@example.com',
             'password' => 'password',
         ])->assertStatus(422)->assertJsonStructure([
@@ -61,14 +61,14 @@ class LoginTest extends TestCase
     {
         $user = User::factory()->create();
         // Send an empty password
-        $this->json('POST', route('login'), [
+        $this->json('POST', route('auth.login'), [
             'email' => $user->email,
             'password' => '',
         ])->assertStatus(422)->assertJsonStructure([
             'errors' => ['password']
         ]);
         // Password provided does not match
-        $this->json('POST', route('login'), [
+        $this->json('POST', route('auth.login'), [
             'email' => $user->email,
             'password' => 'not_valid_password',
         ])->assertStatus(422)->assertJsonStructure([
