@@ -40,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Ip Address belongs to the user
+     */
+    public function ipAddresses()
+    {
+        return $this->hasMany(IpAddress::class, 'user_id');
+    }
 }

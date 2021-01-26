@@ -13,7 +13,7 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
 
-    public function __contruct()
+    public function __construct()
     {
         $this->middleware('auth')->only(['user', 'logout']);
     }
