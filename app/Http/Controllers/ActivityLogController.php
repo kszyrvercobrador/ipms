@@ -14,6 +14,6 @@ class ActivityLogController extends Controller
 
     public function index()
     {
-        return Activity::with('subject', 'causer')->paginate(100);
+        return Activity::with('subject', 'causer')->latest()->paginate(100);
     }
 }
