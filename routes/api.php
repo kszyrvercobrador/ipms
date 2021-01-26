@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\IpAddressController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\Auth\RegisterController;
 
 /*
@@ -28,3 +29,5 @@ Route::group(['prefix' => 'auth'], function () {
 Route::apiResource('ip-address', IpAddressController::class)->only([
     'store', 'index', 'update'
 ]);
+
+Route::get('activity-logs', [ActivityLogController::class, 'index']);

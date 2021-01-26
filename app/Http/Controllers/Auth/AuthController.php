@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Activitylog\ActivityLogger;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -27,6 +28,8 @@ class AuthController extends Controller
                 'email' => [trans('auth.failed')],
             ]);
         }
+
+        app(ActivityLogger::class)->causedBy($user)->log('login');
 
         return response()->json([
             'access_token' => $user->createToken($request->userAgent())->plainTextToken,

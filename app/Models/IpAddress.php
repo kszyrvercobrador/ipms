@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class IpAddress extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -15,6 +16,11 @@ class IpAddress extends Model
      * @var array
      */
     protected $fillable = [
+        'ip_address',
+        'label'
+    ];
+
+    protected static $logAttributes = [
         'ip_address',
         'label'
     ];
